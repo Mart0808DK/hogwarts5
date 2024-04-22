@@ -7,7 +7,7 @@ import java.util.Arrays;
 import java.util.Objects;
 
 @Entity
-public class Student {
+public class Student implements dk.kea.dat3js.hogwarts5.common.PersonWithNames {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private int id;
@@ -79,52 +79,6 @@ public class Student {
 
   public void setSchoolYear(Integer schoolYear) {
     this.schoolYear = schoolYear;
-  }
-
-
-  public String getFullName() {
-    return firstName + " " + (middleName != null ? middleName + " " : "") + lastName;
-  }
-
-  public void setFullName(String fullName) {
-    if (fullName == null || fullName.trim().isEmpty()) {
-      firstName = fullName;
-      middleName = null;
-      lastName = null;
-      return;
-    }
-
-    int firstSpace = fullName.indexOf(" ");
-    int lastSpace = fullName.lastIndexOf(" ");
-
-    if (firstSpace == -1) { // No spaces, only one name part
-      firstName = fullName;
-      middleName = null;
-      lastName = null;
-    } else if (firstSpace == lastSpace) { // One space, two name parts
-      firstName = fullName.substring(0, firstSpace);
-      middleName = null;
-      lastName = fullName.substring(firstSpace + 1);
-    } else { // More than one space, at least three name parts
-      firstName = fullName.substring(0, firstSpace);
-      middleName = fullName.substring(firstSpace + 1, lastSpace);
-      lastName = fullName.substring(lastSpace + 1);
-    }
-  }
-
-  public String capitalize(String name) {
-    if (name == null) {
-      return null;
-    }
-    if (name.isEmpty()) {
-        return "";
-    }
-
-    if (name.contains(" ")) {
-    int space = name.indexOf(" ");
-    return capitalize(name.substring(0, space)) + " " + capitalize(name.substring(space + 1));
-    }
-    return name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase();
   }
 
   @Override
