@@ -3,6 +3,7 @@ package dk.kea.dat3js.hogwarts5.students;
 import dk.kea.dat3js.hogwarts5.house.House;
 import jakarta.persistence.*;
 
+import java.util.Arrays;
 import java.util.Objects;
 
 @Entity
@@ -45,7 +46,7 @@ public class Student {
   }
 
   public void setFirstName(String firstName) {
-    this.firstName = firstName;
+    this.firstName = capitalize(firstName);
   }
 
   public String getMiddleName() {
@@ -53,7 +54,7 @@ public class Student {
   }
 
   public void setMiddleName(String middleName) {
-    this.middleName = middleName;
+    this.middleName = capitalize(middleName);
   }
 
   public String getLastName() {
@@ -61,7 +62,7 @@ public class Student {
   }
 
   public void setLastName(String lastName) {
-    this.lastName = lastName;
+    this.lastName = capitalize(lastName);
   }
 
   public House getHouse() {
@@ -80,6 +81,41 @@ public class Student {
     this.schoolYear = schoolYear;
   }
 
+
+  public String getFullName() {
+    return firstName + " " + (middleName != null ? middleName + " " : "") + lastName;
+  }
+
+  public void setFullName(String fullName) {
+    if (fullName == null || fullName.trim().isEmpty()) {
+      firstName = fullName;
+      middleName = null;
+      lastName = null;
+      return;
+    }
+
+    int firstSpace = fullName.indexOf(" ");
+    int lastSpace = fullName.lastIndexOf(" ");
+
+    if (firstSpace == -1) { // No spaces, only one name part
+      firstName = fullName;
+      middleName = null;
+      lastName = null;
+    } else if (firstSpace == lastSpace) { // One space, two name parts
+      firstName = fullName.substring(0, firstSpace);
+      middleName = null;
+      lastName = fullName.substring(firstSpace + 1);
+    } else { // More than one space, at least three name parts
+      firstName = fullName.substring(0, firstSpace);
+      middleName = fullName.substring(firstSpace + 1, lastSpace);
+      lastName = fullName.substring(lastSpace + 1);
+    }
+  }
+
+  public String capitalize(String name) {
+    return name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase();
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -92,5 +128,4 @@ public class Student {
   public int hashCode() {
     return Objects.hash(getFirstName(), getMiddleName(), getLastName(), getHouse().getName());
   }
-
 }
