@@ -113,6 +113,17 @@ public class Student {
   }
 
   public String capitalize(String name) {
+    if (name == null) {
+      return null;
+    }
+    if (name.isEmpty()) {
+        return "";
+    }
+
+    if (name.contains(" ")) {
+    int space = name.indexOf(" ");
+    return capitalize(name.substring(0, space)) + " " + capitalize(name.substring(space + 1));
+    }
     return name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase();
   }
 

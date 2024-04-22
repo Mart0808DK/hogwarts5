@@ -14,6 +14,9 @@ class StudentTest {
         // Act
         var fullName = student.getFullName();
 
+        // Print the output of the getFullName method
+        System.out.println(fullName);
+
         // Assert
         assertEquals("Harry James Potter", fullName);
     }
@@ -26,6 +29,9 @@ class StudentTest {
         // Act
         var fullName = student.getFullName();
 
+        // Print the output of the getFullName method
+        System.out.println(fullName);
+
         // Assert
         assertEquals("Cho Chang", fullName, "Expected full name to be 'Cho Chang'");
     }
@@ -37,6 +43,9 @@ class StudentTest {
 
         // Act
         student.setFullName("Hermione Jean Granger");
+
+        // Print the output of the getFullName method
+        System.out.println(student.getFullName());
 
         // Assert
         assertEquals("Hermione", student.getFirstName());
@@ -51,6 +60,9 @@ class StudentTest {
 
         // Act
         student.setFullName("Neville Longbottom");
+
+        // Print the output of the getFullName method
+        System.out.println(student.getFullName());
 
         // Assert
         assertEquals("Neville", student.getFirstName());
@@ -79,6 +91,9 @@ class StudentTest {
 
         // Act
         student.setFullName("Albus Percival Wulfric Brian Dumbledore");
+
+        // Print the output of the getFullName method
+        System.out.println(student.getFullName());
 
         // Assert
         assertEquals("Albus", student.getFirstName());
@@ -112,5 +127,43 @@ class StudentTest {
         assertNull(student.getFirstName());
         assertNull(student.getMiddleName());
         assertNull(student.getLastName());
+    }
+
+    @Test
+    void capatalizeIndividualNames() {
+        // Arrange
+        Student student = new Student(null, null, null, 1);
+
+        // Act
+        student.setFirstName("albus");
+        student.setMiddleName("percival wulfric brian");
+        student.setLastName("dumbledore");
+
+        // Print the output of the getFullName method
+        System.out.println(student.getFullName());
+
+        // Assert
+        assertEquals("Albus", student.getFirstName());
+        assertEquals("Percival Wulfric Brian", student.getMiddleName());
+        assertEquals("Dumbledore", student.getLastName());
+    }
+
+    @Test
+    void capatalizeIndividualNamesWithCrazyCapatalization() {
+        // Arrange
+        Student student = new Student(null, null, null, 1);
+
+        // Act
+        student.setFirstName("hArRy");
+        student.setMiddleName("jAmEs");
+        student.setLastName("pOtTeR");
+
+        // Print the output of the getFullName method
+        System.out.println(student.getFullName());
+
+        // Assert
+        assertEquals("Harry", student.getFirstName());
+        assertEquals("James", student.getMiddleName());
+        assertEquals("Potter", student.getLastName());
     }
 }
