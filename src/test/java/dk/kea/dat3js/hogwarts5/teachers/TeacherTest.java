@@ -20,7 +20,7 @@ class TeacherTest {
         System.out.println(fullName);
 
         // Assert
-        assertEquals("Harry James Potter", fullName);
+        assertEquals("Severus Snape Prince", fullName);
     }
 
     @Test
