@@ -46,7 +46,7 @@ public class PrefectService {
     public void checkGenderInSameHouse(Student student) {
             List<Student> prefectsInSameHouse = studentRepository.findAllByPrefectIsTrueAndHouse_Name(student.getHouse().getName());
             for (Student prefect : prefectsInSameHouse) {
-                if (prefect.getGenderMale() == student.getGenderMale()) {
+                if (prefect.getGender() == student.getGender()) {
                     throw new IllegalArgumentException("There can only be male and female prefects in a house");
                 }
             }
