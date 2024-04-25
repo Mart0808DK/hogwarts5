@@ -74,7 +74,7 @@ public class StudentService {
 
     PrefectService.checkForSchoolYearRequirements(student);
     prefectService.checkForAmountOfPrefects();
-    prefectService.checkGenderInSameHouse(student);
+    prefectService.checkGenderInSameHouse(student, student.getId());
 
     student.setPrefect(!student.getPrefect());
     student = studentRepository.save(student);
@@ -96,7 +96,8 @@ public class StudentService {
         studentEntity.getFullName(),
         studentEntity.getHouse().getName(),
         studentEntity.getSchoolYear(),
-        studentEntity.getGender()
+        studentEntity.getGender(),
+        studentEntity.getPrefect()
     );
 
     return dto;
@@ -109,7 +110,8 @@ public class StudentService {
         studentDTO.lastName(),
         houseService.findById(studentDTO.house()).orElseThrow(),
         studentDTO.schoolYear(),
-        studentDTO.gender()
+        studentDTO.gender(),
+        studentDTO.prefect()
     );
 
     if (studentDTO.name() != null) {

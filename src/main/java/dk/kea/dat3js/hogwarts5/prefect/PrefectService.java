@@ -24,7 +24,7 @@ public class PrefectService {
 
         checkForAmountOfPrefects();
 
-        checkGenderInSameHouse(student);
+        checkGenderInSameHouse(student, student.getId());
 
         student.setPrefect(true);
         return studentRepository.save(student);
@@ -38,19 +38,18 @@ public class PrefectService {
 
     public void checkForAmountOfPrefects() {
         List<Student> allPrefects = studentRepository.findAllByPrefectIsTrue();
-        if (allPrefects.size() >= 2) {
+        if (allPrefects.size() > 2) {
             throw new IllegalArgumentException("There can only be two prefects");
         }
     }
 
-    public void checkGenderInSameHouse(Student student) {
-            List<Student> prefectsInSameHouse = studentRepository.findAllByPrefectIsTrueAndHouse_Name(student.getHouse().getName());
-            for (Student prefect : prefectsInSameHouse) {
-                if (prefect.getGender() == student.getGender()) {
-                    throw new IllegalArgumentException("There can only be male and female prefects in a house");
-                }
+    public void checkGenderInSameHouse(Student student, int studentId) {
+        List<Student> prefectsInSameHouse = studentRepository.findAllByPrefectIsTrueAndHouse_Name(student.getHouse().getName());
+        for (Student prefect : prefectsInSameHouse) {
+            if (prefect.getGender() == student.getGender() && prefect.getId() != studentId) {
+                throw new IllegalArgumentException("There can only be male and female prefects in a house");
             }
-
+        }
     }
 
     public List<Student> findAllPrefectByHouseName(String houseName) {

@@ -23,17 +23,18 @@ public class Student implements dk.kea.dat3js.hogwarts5.common.PersonWithNames {
   public Student() {
   }
 
-  public Student(String firstName, String lastName, House house, int schoolYear, Gender gender) {
-    this(firstName, null, lastName, house, schoolYear, gender);
+  public Student(String firstName, String lastName, House house, int schoolYear, Gender gender, Boolean prefect) {
+    this(firstName, null, lastName, house, schoolYear, gender, prefect);
   }
 
-  public Student(String firstName, String middleName, String lastName, House house, int schoolYear, Gender gender) {
+  public Student(String firstName, String middleName, String lastName, House house, int schoolYear, Gender gender, Boolean prefect) {
     this.firstName = firstName;
     this.middleName = middleName;
     this.lastName = lastName;
     this.house = house;
     this.schoolYear = schoolYear;
     this.gender = gender;
+    this.prefect = prefect;
   }
 
   public int getId() {
