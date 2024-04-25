@@ -20,6 +20,10 @@ public class House {
     this.color2 = colors[1];
   }
 
+  public House(String name) {
+    this.name = name;
+  }
+
   public String getName() {
     return name;
   }

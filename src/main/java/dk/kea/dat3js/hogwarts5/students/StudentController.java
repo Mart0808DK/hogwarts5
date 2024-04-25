@@ -4,6 +4,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/students")
@@ -41,6 +42,11 @@ public class StudentController {
   @PatchMapping("/{id}")
   public ResponseEntity<StudentResponseDTO> partialUpdateStudent(@PathVariable int id, @RequestBody StudentRequestDTO student) {
     return ResponseEntity.of(studentService.partialUpdate(id, student));
+  }
+
+  @PatchMapping("/{id}/prefect")
+  public ResponseEntity<StudentResponseDTO> updateToPrefect(@PathVariable int id) {
+    return ResponseEntity.of(Optional.of(studentService.updateToPrefect(id)));
   }
 
   @DeleteMapping("/{id}")

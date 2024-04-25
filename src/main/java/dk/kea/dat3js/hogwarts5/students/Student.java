@@ -16,21 +16,24 @@ public class Student implements dk.kea.dat3js.hogwarts5.common.PersonWithNames {
   private String lastName;
   @ManyToOne
   private House house;
-  private Integer schoolYear; // 1-7
+  private Boolean genderMale;
+  private Integer schoolYear;// 1-7
+  private Boolean prefect;
 
   public Student() {
   }
 
-  public Student(String firstName, String lastName, House house, int schoolYear) {
-    this(firstName, null, lastName, house, schoolYear);
+  public Student(String firstName, String lastName, House house, int schoolYear, Boolean isMale) {
+    this(firstName, null, lastName, house, schoolYear, isMale);
   }
 
-  public Student(String firstName, String middleName, String lastName, House house, int schoolYear) {
+  public Student(String firstName, String middleName, String lastName, House house, int schoolYear, Boolean genderMale) {
     this.firstName = firstName;
     this.middleName = middleName;
     this.lastName = lastName;
     this.house = house;
     this.schoolYear = schoolYear;
+    this.genderMale = genderMale;
   }
 
   public int getId() {
@@ -79,6 +82,22 @@ public class Student implements dk.kea.dat3js.hogwarts5.common.PersonWithNames {
 
   public void setSchoolYear(Integer schoolYear) {
     this.schoolYear = schoolYear;
+  }
+
+  public Boolean getPrefect() {
+    return prefect;
+  }
+
+  public void setPrefect(Boolean prefect) {
+    this.prefect = prefect;
+  }
+
+  public Boolean getGenderMale() {
+    return genderMale;
+  }
+
+  public void setGenderMale(Boolean genderMale) {
+    this.genderMale = genderMale;
   }
 
   @Override

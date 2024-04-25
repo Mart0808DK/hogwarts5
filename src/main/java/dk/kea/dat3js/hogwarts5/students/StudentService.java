@@ -1,6 +1,7 @@
 package dk.kea.dat3js.hogwarts5.students;
 
 import dk.kea.dat3js.hogwarts5.house.HouseService;
+import dk.kea.dat3js.hogwarts5.prefect.PrefectService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -10,10 +11,12 @@ import java.util.Optional;
 public class StudentService {
   private final StudentRepository studentRepository;
   private final HouseService houseService;
+  private final PrefectService prefectService;
 
-  public StudentService(StudentRepository studentRepository, HouseService houseService) {
+  public StudentService(StudentRepository studentRepository, HouseService houseService, PrefectService prefectService) {
     this.studentRepository = studentRepository;
     this.houseService = houseService;
+      this.prefectService = prefectService;
   }
 
   public List<StudentResponseDTO> findAll() {
@@ -65,6 +68,19 @@ public class StudentService {
     }
   }
 
+  public StudentResponseDTO updateToPrefect(int studentId) {
+    Student student = studentRepository.findById(studentId)
+            .orElseThrow(() -> new IllegalArgumentException("Student not found"));
+
+    PrefectService.checkForSchoolYearRequirements(student);
+    prefectService.checkForAmountOfPrefects();
+    prefectService.checkGenderInSameHouse(student);
+
+    student.setPrefect(!student.getPrefect());
+    student = studentRepository.save(student);
+    return toDTO(student);
+  }
+
   public Optional<StudentResponseDTO> deleteById(int id) {
     Optional<StudentResponseDTO> existingStudent = studentRepository.findById(id).map(this::toDTO);
     studentRepository.deleteById(id);
@@ -79,7 +95,8 @@ public class StudentService {
         studentEntity.getLastName(),
         studentEntity.getFullName(),
         studentEntity.getHouse().getName(),
-        studentEntity.getSchoolYear()
+        studentEntity.getSchoolYear(),
+        studentEntity.getGenderMale()
     );
 
     return dto;
@@ -91,7 +108,8 @@ public class StudentService {
         studentDTO.middleName(),
         studentDTO.lastName(),
         houseService.findById(studentDTO.house()).orElseThrow(),
-        studentDTO.schoolYear()
+        studentDTO.schoolYear(),
+        studentDTO.genderMale()
     );
 
     if (studentDTO.name() != null) {
