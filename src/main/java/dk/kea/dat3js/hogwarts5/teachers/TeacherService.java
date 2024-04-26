@@ -84,7 +84,8 @@ public class TeacherService {
         teacherEntity.getLastName(),
         teacherEntity.getHouse().getName(),
         teacherEntity.getMainSubject(),
-        teacherEntity.getEmploymentDate()
+        teacherEntity.getEmploymentDate(),
+        teacherEntity.getFullName()
     );
 
     return dto;

@@ -26,7 +26,7 @@ class TeacherTest {
     @Test
     void getFullNameWithoutMiddleName() {
         // Arrange
-        Teacher teacher = new Teacher("Cho", "Chang", null, null, null);
+        Teacher teacher = new Teacher("Minerva", "McGonagall", null, null, null);
 
         // Act
         var fullName = teacher.getFullName();
@@ -35,7 +35,7 @@ class TeacherTest {
         System.out.println(fullName);
 
         // Assert
-        assertEquals("Cho Chang", fullName, "Expected full name to be 'Cho Chang'");
+        assertEquals("Minerva McGonagall", fullName, "Expected full name to be 'Minerva McGonagall'");
     }
 
     @Test

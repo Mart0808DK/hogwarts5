@@ -10,7 +10,7 @@ class StudentTest {
     @Test
     void getFullNameWithMiddleName() {
         // Arrange
-        Student student = new Student("Harry", "James", "Gryffindor", null, 1, Gender.MALE, true);
+        Student student = new Student("Harry", "James", "Potter", null, 1, Gender.MALE, true);
 
         // Act
         var fullName = student.getFullName();
