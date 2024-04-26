@@ -3,6 +3,7 @@ package dk.kea.dat3js.hogwarts5.ghost;
 import dk.kea.dat3js.hogwarts5.house.House;
 import dk.kea.dat3js.hogwarts5.house.HouseRepository;
 import dk.kea.dat3js.hogwarts5.house.HouseService;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -34,14 +35,16 @@ class GhostControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
-    @Test
-    void getAllGhost() throws Exception {
-
+    @BeforeEach
+    void setUp() {
         when(houseRepository.findById("Gryffindor")).thenReturn(Optional.of(new House("Gryffindor", "Godric Gryffindor", new String[]{"red", "gold"})));
         when(houseRepository.findById("Slytherin")).thenReturn(Optional.of(new House("Slytherin", "Salazar Slytherin", new String[]{"green", "silver"})));
         when(houseRepository.findById("Ravenclaw")).thenReturn(Optional.of(new House("Ravenclaw", "Rowena Ravenclaw", new String[]{"blue", "silver"})));
         when(houseRepository.findById("Hufflepuff")).thenReturn(Optional.of(new House("Hufflepuff", "Helga Hufflepuff", new String[]{"yellow", "black"})));
+    }
 
+    @Test
+    void getAllGhost() throws Exception {
         mockMvc.perform(get("/ghosts"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(4)))
