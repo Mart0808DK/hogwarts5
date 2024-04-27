@@ -5,6 +5,7 @@ import dk.kea.dat3js.hogwarts5.students.StudentRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PrefectService {
@@ -67,13 +68,17 @@ public class PrefectService {
     }
 
     public Student delete(int id) {
-        var student = studentRepository.findById(id).orElseThrow();
-
-        if (student.getPrefect()) {
-            student.setPrefect(false);
-            return studentRepository.save(student);
+        Optional<Student> studentOptional = studentRepository.findById(id);
+        if (studentOptional.isPresent()) {
+            Student student = studentOptional.get();
+            if (student.getPrefect()) {
+                studentRepository.delete(student);
+                return student;
+            } else {
+                throw new IllegalArgumentException("Student with id " + id + " is not a prefect");
+            }
         } else {
-            throw new IllegalArgumentException("Student is not a prefect");
+            throw new IllegalArgumentException("No student found with id " + id);
         }
     }
 }

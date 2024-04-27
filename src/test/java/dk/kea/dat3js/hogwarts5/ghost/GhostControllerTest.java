@@ -60,22 +60,4 @@ class GhostControllerTest {
                 .andExpect(jsonPath("$.house").value("Gryffindor"));
     }
 
-    /*@Test
-    void getGhost() {
-
-        // Arrange
-        GhostController ghostController = new GhostController();
-
-        // Act
-        var ghost = ghostController.getGhostByName("Nearly Headless Nick");
-
-        // Assert
-        assertTrue(ghost.hasBody());
-        assertEquals("Nearly Headless Nick", ghost.getBody().getName());
-        assertEquals("Sir Nicholas de Mimsy-Porpington", ghost.getBody().getRealName());
-        assertEquals("Gryffindor", ghost.getBody().getHouse());
-
-
-    }*/
-
 }
